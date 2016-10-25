@@ -133,7 +133,6 @@ Custom property | Description | Default
          * The URL of an image.
          */
         src: {
-          observer: '_srcChanged',
           type: String,
           value: ''
         },
@@ -153,8 +152,7 @@ Custom property | Description | Default
          */
         preventLoad: {
           type: Boolean,
-          value: false,
-          observer: '_preventLoadChanged'
+          value: false
         },
 
         /**
@@ -263,7 +261,8 @@ Custom property | Description | Default
       },
 
       observers: [
-        '_transformChanged(sizing, position)'
+        '_transformChanged(sizing, position)',
+        '_loadConditionsChanged(src, preventLoad)'
       ],
 
       ready: function() {
@@ -355,21 +354,16 @@ Custom property | Description | Default
         this.style.height = isNaN(this.height) ? this.height : this.height + 'px';
       },
 
-      _preventLoadChanged: function() {
-        if (this.preventLoad || this.loaded) return;
+      _loadConditionsChanged: function(src, preventLoad) {
+        var newSrc = this._resolveSrc(src);
 
-        this._reset();
-        this._load(this.src);
-      },
+        if (newSrc !== this._resolvedSrc) {
+          this._resolvedSrc = newSrc;
+          this._reset();
+        }
 
-      _srcChanged: function(newSrc, oldSrc) {
-        var newResolvedSrc = this._resolveSrc(newSrc);
-        if (newResolvedSrc === this._resolvedSrc) return;
-        this._resolvedSrc = newResolvedSrc;
-
-        this._reset();
-        if (!this.preventLoad) {
-          this._load(newSrc);
+        if (!preventLoad) {
+          this._load(src);
         }
       },
 
