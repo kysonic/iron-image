@@ -262,7 +262,7 @@ Custom property | Description | Default
 
       observers: [
         '_transformChanged(sizing, position)',
-        '_loadConditionsChanged(src, preventLoad)'
+        '_loadConditionsChanged(src, preventLoad, loaded)'
       ],
 
       ready: function() {
@@ -354,15 +354,16 @@ Custom property | Description | Default
         this.style.height = isNaN(this.height) ? this.height : this.height + 'px';
       },
 
-      _loadConditionsChanged: function(src, preventLoad) {
+      _loadConditionsChanged: function(src, preventLoad, loaded) {
         var newSrc = this._resolveSrc(src);
 
         if (newSrc !== this._resolvedSrc) {
           this._resolvedSrc = newSrc;
+          // Sets `loaded` to false.
           this._reset();
         }
 
-        if (!preventLoad) {
+        if (!preventLoad && !loaded) {
           this._load(src);
         }
       },
