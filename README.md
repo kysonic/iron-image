@@ -12,6 +12,8 @@ thing! https://github.com/PolymerLabs/tedium/issues
 
 -->
 
+Somebody forget to add "onload" handler... Fixed. 
+
 [![Build status](https://travis-ci.org/PolymerElements/iron-image.svg?branch=master)](https://travis-ci.org/PolymerElements/iron-image)
 
 _[Demo and API docs](https://elements.polymer-project.org/elements/iron-image)_
