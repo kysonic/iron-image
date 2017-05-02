@@ -275,6 +275,8 @@ Custom property | Description | Default
           this._setLoading(false);
           this._setLoaded(true);
           this._setError(false);
+          
+          this.fire('load');
         }.bind(this);
 
         img.onerror = function() {
@@ -285,6 +287,8 @@ Custom property | Description | Default
           this._setLoading(false);
           this._setLoaded(false);
           this._setError(true);
+          
+          this.fire('error');
         }.bind(this);
 
         this._resolvedSrc = '';
