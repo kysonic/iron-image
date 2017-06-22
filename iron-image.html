@@ -88,6 +88,8 @@ Custom property | Description | Default
         display: block;
         width: var(--iron-image-width, auto);
         height: var(--iron-image-height, auto);
+        
+        @apply(--iron-image-mixin);
       }
 
       :host([sizing]) #sizedImgDiv {
